@@ -1,1 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="styles.css" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link href="colorjoe/colorjoe.css" rel="stylesheet"/>
+    <script src="colorjoe/colorjoe.min.js"></script>
+    <style>
+        body {
+            background: #eeeeee;
+            margin: 20px;
+        }
 
+        .colorPicker {
+            background: none;
+            border: none;
+            margin: 0;
+        }
+
+        .colorPicker .oned {
+            margin-right: 0;
+        }
+
+        .container {
+            display: flex;
+            width: 500px;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 5px;
+            margin: 0 auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .config {
+            flex-grow: 1;
+            margin-left: 20px;
+        }
+
+        .config-title {
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        .selected-colour-hex {
+            font-family: monospace;
+            text-align: center;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .selected-colour {
+            height: 15px;
+            border: 1px solid #eeeeee;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS Styling Cheat Sheet</h1>
+    <h2>CSS Box Model</h2>
+    <div class="box-model">
+        <figure>
+            <a href="https://www.w3schools.com/css/css_boxmodel.asp" target="_blank"><img src="./css-box-model.png" alt="CSS box model"></a>
+            <figcaption>CSS Box Model from https://www.w3schools.com/css/css_boxmodel.asp</figcaption>
+        </figure>
+        <br>
+        <table>
+            <thead>
+                <tr>
+                    <th>Declaration</th>
+                    <th>Explanation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>width: 800px</td>
+                    <td>Set the width of the block element</td>
+                </tr>
+                <tr>
+                    <td>height: 100px</td>
+                    <td>Set the height of the block element</td>
+                </tr>
+                <tr>
+                    <td>border: 1px solid black</td>
+                    <td>Set the border of the element: weight / style / colour</td>
+                </tr>
+                <tr>
+                    <td>padding: 10px</td>
+                    <td>Set the padding between the text/content and the border</td>
+                </tr>
+                <tr>
+                    <td>margin: 20px auto</td>
+                    <td>Set the space between border and edge of container. Use 'auto' to centrally align within the container.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <h2>Colour Syntaxes</h2>
+    <table class="colour">
+        <thead>
+            <tr>
+                <th>Declaration</th>
+                <th>Explanation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>color: #FF002B</td>
+                <td>Hexadecimal colour values</td>
+            </tr>
+            <tr>
+                <td>color: rgb(255, 0, 43)</td>
+                <td>RGB (red, green, blue) colour values</td>
+            </tr>
+            <tr>
+                <td>color: hsl(350, 100%, 50%)</td>
+                <td>HSL (hue, saturation, lightness) colour values</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <div class="container">
+        <div class="colorjoe"></div>
+        <div class="config">
+            <div class="config-title">Selected Colour</div>
+            <div class="selected-colour"></div>
+            <div class="selected-colour-hex"></div>
+            <div class="selected-colour-rgb"></div>
+            <div class="selected-colour-hsl"></div>
+        </div>
+    </div>
+    <br>
+    <footer>
+        <div class="project">
+            <p>This project was created for Codecademy's Challenge Project: Build Your Own Cheat Sheet.</p>
+        </div>
+        <div class="sources">
+            <p>Thanks to <a href="https://github.com/bebraw/colorjoe" target="_blank">bebraw</a> for the code to make the colour picker, and to <a href="https://youtu.be/eGth988Sm8w?si=mSGHzuvMbj9RMMOy" target="_blank">dcode</a> for the YouTube tutorial on how to embed.</p>
+        </div>
+    </footer>
+    <script>
+        class ColorPicker {
+            constructor(root) {
+                this.root = root;
+                this.colorjoe = colorjoe.rgb(this.root.querySelector(".colorjoe"));
+                this.selectedColor = null;
+
+                this.colorjoe.show();
+                this.setSelectedColor("#FF002B");
+
+                this.colorjoe.on("change", color => {
+                    this.setSelectedColor(color.hex());
+                });
+            }
+
+            setSelectedColor(color, skipCjUpdate = false) {
+                this.selectedColor = color;
+                this.root.querySelector(".selected-colour-hex").textContent = color;
+                this.root.querySelector(".selected-colour").style.background = color;
+            }
+        }
+
+        const colorPicker = new ColorPicker (document.querySelector(".container"));
+
+        // const cj = colorjoe.rgb(document.querySelector(".colorjoe"));
+
+        // cj.show();
+    </script> 
+
+</body>
+
+</html>
